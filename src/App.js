@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Entry from './components/entry.js'
+import List from './components/list.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          This is the branch code
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      entries:[]
+    };
+
+    this.addEntry = this.addEntry.bind(this);
+  }
+
+  addEntry(entry) {
+    let entries_copy = this.state.entries.slice();
+    entries_copy.push(entry)
+    this.setState({entries:entries_copy})
+  }
+
+  render() {
+    return (
+      <div>
+         <Entry addEntry = {this.addEntry}/>
+         {this.state.entries.length != 0 && <List entries={this.state.entries}/>}
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
